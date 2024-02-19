@@ -20,9 +20,11 @@ The subsequent sections of the report will replicate the results step by step st
 ## 2. Random walks 
 
 The core task in this section is to treat the white noise term of the free diffusion equation within a finite difference framework. This provides numerical tools for subsequent handling of the stochastic differential equation of free diffusion. We can describe the motion of Brownian particles using the Langevin equation below.
+
 $$
 m\ddot{x}(t) = -\gamma\dot{x}(t) + kx(t) + \sqrt{2k_BT\gamma}W(t) \tag{1}
 $$
+
 where $x$ is the particle position, $m$ is the mass, $\gamma$ is the friction coefficients, $k$ is the trap stiffness, $\sqrt{2k_BT\gamma}W(t)$ is the Fluctuating force.
 
 The finite difference method typically approximates $x(t), \dot{x}(t), \ddot{x}(t)$ using the following expression. In the report, the backward difference, which corresponds to the implicit Euler method, is employed.
