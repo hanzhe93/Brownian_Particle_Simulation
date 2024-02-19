@@ -19,7 +19,7 @@ The subsequent sections of the report will replicate the results step by step st
 
 ## 2. Random walks 
 
-The core task in this section is to treate the white noise term of the free diffusion equation within a finite difference framework. This provides numerical tools for subsequent handling of the stochastic differential equation of free diffusion. We can describe the motion of Brownian particles using the Langevin equation below.
+The core task in this section is to treat the white noise term of the free diffusion equation within a finite difference framework. This provides numerical tools for subsequent handling of the stochastic differential equation of free diffusion. We can describe the motion of Brownian particles using the Langevin equation below.
 $$
 m\ddot{x}(t) = -\gamma\dot{x}(t) + kx(t) + \sqrt{2k_BT\gamma}W(t) \tag{1}
 $$
