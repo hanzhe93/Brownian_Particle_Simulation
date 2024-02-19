@@ -5,5 +5,3 @@ The report along with the Matlab and Python code will be arranged in the Markdow
 Some typos either in the article or supplements are available to checked out as well.
 
 Thank you for looking through the report, if you have any questions, please feel free to pull the request or directly drop me an email.
-
-BTW, considering the copyright of the content, I have to keep documents private.
