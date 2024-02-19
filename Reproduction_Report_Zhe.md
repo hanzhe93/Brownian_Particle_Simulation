@@ -849,7 +849,7 @@ ylim([-1,1.1])
 Consider a double-well potential $U(x)=ax^4/4-bx^2/2$ , then the corresponding force is derived as:
 
 $$
-F(x)=-ax^3 + bx
+F(x)=-ax^3 + bx \tag{21}
 $$
 
 ![fig6c.svg](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fd14867c92874ca0b224939d4374db78~tplv-k3u1fbpfcp-watermark.image?)
