@@ -28,6 +28,7 @@ $$
 where $x$ is the particle position, $m$ is the mass, $\gamma$ is the friction coefficients, $k$ is the trap stiffness, $\sqrt{2k_BT\gamma}W(t)$ is the Fluctuating force.
 
 The finite difference method typically approximates $x(t), \dot{x}(t), \ddot{x}(t)$ using the following expression. In the report, the backward difference, which corresponds to the implicit Euler method, is employed.
+
 $$
 x_i
 $$
@@ -41,32 +42,41 @@ $$
 $$
 
 Discussing numerical treatment methods for white noise using the simple free diffusion equation below:
+
 $$
 \dot{x}(t) = W(t) \tag{3}
 $$
+
 where $W_i$ approximates $W(t)$ with zero mean and variance $1/\Delta t$. $W_i = w_i/\sqrt{\Delta t}$ where $w_i$ is the Gaussian random number sequence.
 
 The finite difference form of this equation is:
+
 $$
 \frac{x_i - x_{i - 1}}{\Delta t} = \frac{w_i}{\sqrt{\Delta t}} \tag{4}
 $$
+
 namely,
+
 $$
 x_i = x_{i - 1} + \sqrt{\Delta t}w_i \tag{5}
 $$
+
 By solving the above finite difference equation, **Gaussian white noise and free diffusion trajectories** are demonstrated with $\Delta t = 1.0, 0.5, 0.1$.
 
 ![Figure_1ad.svg](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/41ff115ae0d141999ce6273c0f7fc877~tplv-k3u1fbpfcp-watermark.image?)
+
 $$
 \Delta t = 1
 $$
 
 ![Figure_1be.svg](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/938c10f6cbda4fb5baec8d7f056b9ee5~tplv-k3u1fbpfcp-watermark.image?)
+
 $$
 \Delta t = 0.5
 $$
 
 ![Figure_1cf.svg](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b6b5a8763ba94a7bbd68bb54ada8f186~tplv-k3u1fbpfcp-watermark.image?)
+
 $$
 \Delta t = 0.1
 $$
@@ -134,10 +144,13 @@ random_walk(N, Dt, x1, x2, n)
 ## 3. Free diffusion
 
 The main idea is to analysis the transition from ballistic to diffusive behavior induced by inertial effects at short time scales. Diffusion and friction coefficients satisfy the Einstein relation $\gamma D = k_B T$. As it is free diffusion, this section considers the Langevin equation without the restoring force term, as follows:
+
 $$
 m\ddot{x}(t)=-\gamma \dot{x}(t) + \sqrt{2 k_B T \gamma} W(t) \tag{6}
 $$
+
 The particle parameters used in the simulation are as follows:
+
 $$
 R = 1\mu m, m = 11pg, \eta = 0.001Nsm^{-2}, \gamma=6\pi\eta R, T= 300K, \tau = m/\gamma=0.6\mu s
 $$
@@ -145,6 +158,7 @@ $$
 ### 3.1 Inertial regime
 
 The corresponding finite difference format and solution are:
+
 $$
 m\frac{x_i - 2x_{i-1} + x{i-2}}{(\Delta t)^2} = -\gamma\frac{x_i - x_{i-1}}{\Delta t} + \sqrt{2 k_B T \gamma}\frac{1}{\sqrt{\Delta t}}w_i \tag{7}
 $$
@@ -155,18 +169,22 @@ x_i = \frac{2 + \Delta t (\gamma/m)}{1 + \Delta t (\gamma/m)}x_{i-1} - \frac{1}{
 $$
 
 
-where $\tau=m/\gamma$ is the momentum relaxation time. This time scale represents for the transition from smooth ballistic behavior to diffusive behavior.
+where $\tau=m/\gamma$ is the momentum relaxation time. This time scale represents the transition from smooth ballistic behavior to diffusive behavior.
 
 ### 3.2 Diffusive regime
 
 Due to the small time scale, neglecting the inertial term yields:
+
 $$
 \dot{x}(t) = \sqrt{2D}W(t) \tag{9}
 $$
+
 The corresponding finite difference form is:
+
 $$
 x_i = x_{i-1} + \sqrt{2D \Delta t}w_i \tag{10}
 $$
+
 **Trajectories in inertial and diffusive regimes** can be plotted as:
 
 ![fig2a.svg](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/00196fb8a8a94183b38e3e72b7099825~tplv-k3u1fbpfcp-watermark.image?)
@@ -210,6 +228,7 @@ function [x, t] = inertial_diffusive(N, Dt, x1, x2, R, T, eta)
 ### 3.3 Velocity autocorrelation function
 
 The velocity autocorrelation function is a time measure that is independent of the particle's initial velocity. The definition and corresponding finite difference discrete format are as follows:
+
 $$
 C_v(t)=\overline{v(t^{'}+t)v(t^{'})} \tag{11}
 $$
@@ -248,6 +267,7 @@ ylim([0, 1.2]);
 ### 3.4 Mean square displacement
 
 Mean square displacement quantifies how a particle moves from its initial position. The definition and corresponding finite difference discrete format are as follows:
+
 $$
 \left\langle x(t)^2 \right\rangle = \overline{[x(t^{'}+t)-x(t^{'})]^2} \tag{13}
 $$
@@ -284,15 +304,19 @@ function [msdx,msdy,sx,sy] = MSD(x,y,Dt)
 In this section, we are going to talk about the Influence of optical traps on particle motion.
 
 The Langevin equation in three-dimensional space is as follows:
+
 $$
 \vec{r_i} = \vec{r_{i-1}}-\frac{1}{\gamma}\vec{k}\cdot{\vec{r_{i-1}}}\Delta t+\sqrt{2D\Delta t}\vec{w_i} \tag{16}
 $$
+
 where $k_x = k_y = 1.0 \times 10^{-6}N/m$ and $k_z = 0.2\times 10^{-6}N/m $
 
 Position autocorrelation function describes how particles enter the trap.
+
 $$
 C_x(t) = \overline{x(t^{'}+t)x(t^{'})} \tag{17}
 $$
+
 **Trajectories of Brownian particles in optical trap** and corresponding **projection** on $xz$ plane and $xy$ plane:
 
 ![fig3a.svg](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bf82a98b901d4af0a671d2c10d7cc003~tplv-k3u1fbpfcp-watermark.image?)
@@ -404,16 +428,19 @@ end
 **Particle distribution** on $xy$ plane with $k_{x y} = 0.2 f N/nm, k_{x y} = 1.0 f N/nm, k_{x y} = 5.0 f N/nm$ :
 
 ![fig4b.svg](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eb139e29e2184776a13556ebea574509~tplv-k3u1fbpfcp-watermark.image?)
+
 $$
 k_{x y} = 0.2 f N/nm
 $$
 
 ![fig4c.svg](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b14410253b0f41689f42b054ae3dee76~tplv-k3u1fbpfcp-watermark.image?)
+
 $$
 k_{x y} = 1.0 f N/nm
 $$
 
 ![fig4d.svg](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/11cfcf4e53a0480385555ca7cb86d607~tplv-k3u1fbpfcp-watermark.image?)
+
 $$
 k_{x y} = 5.0 f N/nm
 $$
@@ -602,9 +629,11 @@ end
 ### 5.1 Simple optical trap
 
 Equation $(1)$ can be generalized as:
+
 $$
 \dot{x}(t)=\frac{1}{\gamma}F(x(t),t)+\sqrt{2D}W(t) \tag{18}
 $$
+
 Let  $F(x(t), t) = -k x(t)$ , then we have equation $(1)$.
 
 ### 5.2 Photonic force microscopy
@@ -714,6 +743,7 @@ end
 ### 5.3 Rotational force field
 
 Let 
+
 $$
 \vec{F}(x, y)= -\begin{bmatrix}
 k & \gamma \Omega\\
@@ -723,9 +753,11 @@ x \\
 y\\
 \end{bmatrix} \tag{19}
 $$
+
 where $\Omega$ represents the rotation component.
 
 To describe the motion correlation on $x$ and $y$ direction, **position cross-correlation** function is expressed as:
+
 $$
 C_{x y}(t)=\overline{x(t^{'}+t)y(t^{'})} \tag{20}
 $$
@@ -815,6 +847,7 @@ ylim([-1,1.1])
 ### 5.4 Double-well potential force
 
 Consider a double-well potential $U(x)=ax^4/4-bx^2/2$ , then the corresponding force is derived as:
+
 $$
 F(x)=-ax^3 + bx
 $$
@@ -865,7 +898,8 @@ function [x,y,t]=...
 
 ### 5.5 Stochastic resonant damping
 
-By introducing the time varying potential, we have stochastic resonant damping:
+By introducing the time-varying potential, we have stochastic resonant damping:
+
 $$
 F(x(t),t)=-k[x(t)-x_c sin(2\pi f t)] \tag{22}
 $$
@@ -874,6 +908,7 @@ $$
 ### 5.6 Stochastic resonance
 
 and stochastic resonance:
+
 $$
 F(x(t), t) = -ax^3 + bx +c sin(2 \pi f t) \tag{23}
 $$
@@ -891,7 +926,7 @@ Within an optical trap, the particle's motion is significantly influenced by the
 
 Furthermore, for more complex force scenarios, the methods discussed in this paper provide a theoretical basis for specific experimental measurements.
 
-The reproduced simulation closely resembled the original findings, indicating successful replication. However, some minor typo errors are worth noting. Although these do not impact the accuracy of the content in the article, they may cause confusion for readers attempting to reproduce the study. For instance, there is a missing "(dt)^(3/2)" in the inertial regime code in the supplementary file, and there is a discrepancy in the units before and after "kx" in the article. Additionally, there are discussions about some content in the article that might be typo errors, such as the issue with the negative signs in formulas (15) and (18), and whether the equation for the particle's position autocorrelation function in Figure 5(a) is indeed formula (23).
+The reproduced simulation closely resembled the original findings, indicating successful replication. However, some minor typo errors are worth noting. Although these do not impact the accuracy of the content in the article, they may confuse readers attempting to reproduce the study. For instance, there is a missing "(dt)^(3/2)" in the inertial regime code in the supplementary file, and there is a discrepancy in the units before and after "kx" in the article. Additionally, there are discussions about some content in the article that might be typo errors, such as the issue with the negative signs in formulas (15) and (18), and whether the equation for the particle's position autocorrelation function in Figure 5(a) is indeed formula (23).
 
 The reproduction of the simulation of a Brownian particle in an optical trap demonstrates the robustness of the original study's methodology. Despite some challenges, the reproduced results largely align with the original findings, reaffirming the validity of the proposed model.
 
