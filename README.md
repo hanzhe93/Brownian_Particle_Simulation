@@ -1,4 +1,4 @@
-# Brownian_Particle_Simulation
+# Brownian Particle Simulation
 This is a reproduction of the paper "Simulation of a Brownian particle in an optical trap".
 
 The report along with the Matlab and Python code will be arranged in the Markdown file together.
